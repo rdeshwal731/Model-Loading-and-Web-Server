@@ -17,11 +17,11 @@ A Flask-based web application utilizing the DeepSeek-R1-Distill-Qwen-1.5B model 
 
 ## Table of Contents
 - [Setting-up](#Installation)
-- [Running up](#RunningtheApplication)
-- [API Endpoints](#APIEndpoints)
-- [System](#Systemrequirements)
-- [Libraries](#Librariesused)
-- [Networking](#NetworkingRequirements)
+- [Running up](#Running-the-Application)
+- [API Endpoints](#API-Endpoints)
+- [System](#System-Requirements)
+- [Libraries](#Libraries-used)
+- [Networking](#Networking-Requirements)
 - [License](#License)
 
 ## Installation
