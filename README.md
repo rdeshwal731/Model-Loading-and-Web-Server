@@ -26,17 +26,17 @@ A Flask-based web application utilizing the DeepSeek-R1-Distill-Qwen-1.5B model 
 
 ## Installation
 &emsp;1. Clone this repository: 
-<br/>&emsp;<br/>&emsp;https://github.com/rdeshwal731/Model-Loading-and-Web-Server/tree/master
+<br/>&emsp;&emsp;&emsp;https://github.com/rdeshwal731/Model-Loading-and-Web-Server/tree/master
 <br/>&emsp;
 <br/>&emsp;2. Create a virtual environment:
-<br/>&emsp;<br/>&emsp;python3 -m venv venv
-<br/>&emsp;source venv/bin/activities '#' On Windows: venv\Scripts\activate
+<br/>&emsp;&emsp;&emsp;python3 -m venv venv
+<br/>&emsp;&emsp;&emsp;source venv/bin/activities '#' On Windows: venv\Scripts\activate
 <br/>&emsp;
 <br/>&emsp;3. Install dependencies:
-<br/>&emsp;<br/>&emsp;install all the [libraries](#librariesused)
+<br/>&emsp;&emsp;&emsp;install all the [libraries](#librariesused)
 <br/>&emsp;
 <br/>&emsp;4. If using a GPU, install PyTorch with CUDA support:
-<br/>&emsp;<br/>&emsp;pip install torch torchvision torchaudio --index-url <br/>&emsp;<br/>&emsp;https://download.pytorch.org/whl/cu118
+<br/>&emsp;&emsp;&emsp;pip install torch torchvision torchaudio --index-url <br/>&emsp;&emsp;&emsp;https://download.pytorch.org/whl/cu118
 <br/>&emsp;
 
 ## Running the Application
