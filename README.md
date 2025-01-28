@@ -36,7 +36,7 @@ A Flask-based web application utilizing the DeepSeek-R1-Distill-Qwen-1.5B model 
 <br/>&emsp;source venv/bin/activities '#' On Windows: venv\Scripts\activate
 <br/>&emsp;
 <br/>&emsp;3. Install dependencies:
-<br/>&emsp;<br/>&emsp;pip install all the libraries.
+<br/>&emsp;<br/>&emsp;install all the [libraries](#librariesused)
 <br/>&emsp;
 <br/>&emsp;4. If using a GPU, install PyTorch with CUDA support:
 <br/>&emsp;<br/>&emsp;pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
