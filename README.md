@@ -44,7 +44,8 @@ A Flask-based web application utilizing the DeepSeek-R1-Distill-Qwen-1.5B model 
 
 ## Running the Application
 <br/>&emsp;1. Start the Flask application:
-<br/>&emsp;<br/>&emsp;python Raghav Task Assignment Python Program with Model Loading and Web Server.py
+<br/>&emsp;<br/>&emsp;python webapp.py
+<br/>&emsp;
 <br/>&emsp;2. Open a web browser and go to:
 <br/>&emsp;<br/>&emsp;http://127.0.0.1:5000
 <br/>&emsp;
