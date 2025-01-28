@@ -38,60 +38,126 @@ processing_thread.start()
 
 
 
-#5---initializing web server
-class RequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == '/':
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
-            self.wfile.write(b'''
-                <html>
-                <head><title>DeepSeek R1 1.5 Web UI</title></head>
-                <body>
-                    <h1>DeepSeek R1 1.5 Web UI</h1>
-                    <form action="/process" method="POST">
-                        <label for="inputData">Enter Data:</label>
-                        <input type="text" id="inputData" name="inputData" required>
-                        <input type="submit" value="Process">
-                    </form>
-                </body>
-                </html>
-            ''')
-        else:
-            self.send_response(404)
-            self.end_headers()
+#5---initializing simple web-UI
+html_template = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek R1 Chatbot</title>  <!-- Changed title -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px; 
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+            font-size: 16px; 
+        }
+        button {
+            padding: 12px 25px; 
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px; 
+        }
+        button:hover {
+            background-color: #218838; 
+        }
+        #response {
+            margin-top: 25px; 
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px;
+            background-color: #f9f9f9; 
+            white-space: pre-wrap;
+            font-size: 16px; 
+        }
+        #response.processing::before { 
+            content: 'Processing... ';
+            display: block;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> <!-- Added container div -->
+        <h1>DeepSeek R1 Chatbot</h1> <!-- Changed heading -->
+        <form id="query-form">
+            <textarea id="query" placeholder="Ask me anything..."></textarea><br> <!-- Changed placeholder -->
+            <button type="button" onclick="sendQuery()">Get Response</button> <!-- Changed button text -->
+        </form>
+        <div id="response"></div>
+    </div>
+    <script>
+        async function sendQuery() {
+            const queryInput = document.getElementById("query"); 
+            const query = queryInput.value;
+            const responseDiv = document.getElementById("response");
 
-    def do_POST(self):
-        if self.path == '/process':
-            # Parse the form data
-            content_length = int(self.headers['Content-Length'])
-            post_data = self.rfile.read(content_length)
-            data = parse_qs(post_data.decode('utf-8'))['inputData'][0]
+            if (!query.trim()) { 
+                responseDiv.textContent = "Please enter a query.";
+                return;
+            }
 
-            #request adding to queue for processing
-            request_queue.put(data)
+            responseDiv.classList.add('processing'); 
 
-            #responding back
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
-            self.wfile.write(f'''
-                <html>
-                <head><title>Processing...</title></head>
-                <body>
-                    <h1>Request Received</h1>
-                    <p>Your request is being processed. Please wait.</p>
-                </body>
-                </html>
-            '''.encode())
+            try {
+                const response = await fetch("/process", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ query })
+                });
+
+                const result = await response.json();
+                responseDiv.textContent = result.response;
+            } catch (error) {
+                responseDiv.textContent = "Error: " + error.message;
+            } finally {
+                responseDiv.classList.remove('processing'); 
+                queryInput.value = ''; 
+            }
+        }
+    </script>
+</body>
+</html>
+"""
+
+
 
 
 #6--running web server
-def run_server():
+
 
 
 
 #main thread
-if __name__ == '__main__':
-    run_server()
+
