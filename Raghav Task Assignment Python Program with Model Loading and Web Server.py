@@ -1,41 +1,41 @@
 #libraries
-import threading
-import queue
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from flask import Flask, request, jsonify, render_template_string
+from threading import Thread
+from queue import Queue
 import time
-from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import parse_qs
 
 
-#1--ds model initializing
-class DeepSeekModel:
-    def __init__(self):
-        self.loaded = False
+#1--ds model loading
+def load_model():
+    model_name = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    print("Model loaded successfully!")
+    return model, tokenizer
 
-    def load_model(self):
-
-    def process_request(self, data):
-
-
-
-#2--queeue for request handling
-request_queue = queue.Queue()
+model, tokenizer = load_model()
+app = Flask(__name__)
 
 
+#2--queeue for request/query handling 
+query_queue = Queue() 
 
 
-#3--request processing in sequence
-def process_requests():
+#3--request/query processing in background and in sequence #worker threads
+def worker_process(): 
+    while True:
+        func, args = query_queue.get() 
+        func(*args)
+        query_queue.task_done() 
 
 
-
+processing_thread = Thread(target=worker_process, daemon=True) 
+processing_thread.start() 
 
 
 #4--Loading model and starting a eorker thread
-model = DeepSeekModel()
-model.load_model()
 
-worker_thread = threading.Thread(target=process_requests, daemon=True)
-worker_thread.start()
 
 
 #5---initializing web server
