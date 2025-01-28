@@ -29,16 +29,11 @@ def worker_process():
         func(*args)
         query_queue.task_done() 
 
-
 processing_thread = Thread(target=worker_process, daemon=True) 
 processing_thread.start() 
 
 
-#4--Loading model and starting a eorker thread
-
-
-
-#5---initializing simple web-UI
+#4---initializing simple web-UI
 html_template = """
 <!DOCTYPE html>
 <html lang="en">
@@ -151,13 +146,50 @@ html_template = """
 </html>
 """
 
+#5--tokenization and response generation
+def process_query(query):
+    print(f"Processing query: {query}")
+    prompt = f"User: {query}\n\nAssistant:"
 
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+        tokenizer.pad_token_id = tokenizer.eos_token_id
 
+    inputs = tokenizer(prompt, return_tensors="pt", padding=True)
+    outputs = model.generate(
+        inputs["input_ids"],
+        max_length=500
+    )
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    if "Assistant:" in response:
+        response = response.split("Assistant:")[1].strip()
+    else:
+        response = response.strip()
+    return response
 
-#6--running web server
+@app.route('/')
 
+def index():
+    return render_template_string(html_template)
 
+@app.route('/process', methods=['POST'])
 
+def process_request():
+    data = request.get_json()
+    query = data.get('query', '')
+
+    if not query:
+        return jsonify({"error": "No query provided."}), 400
+    
+    result_container = [] 
+
+    def task():
+        result_container.append(process_query(query)) 
+    query_queue.put((task, [])) 
+    query_queue.join() 
+
+    return jsonify({"response": result_container[0]})
 
 #main thread
-
+if __name__ == '__main__':
+    app.run(debug=False, host='0.0.0.0', port=5000)
