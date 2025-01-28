@@ -36,15 +36,15 @@ A Flask-based web application utilizing the DeepSeek-R1-Distill-Qwen-1.5B model 
 <br/>&emsp;&emsp;&emsp;install all the [libraries](#librariesused)
 <br/>&emsp;
 <br/>&emsp;4. If using a GPU, install PyTorch with CUDA support:
-<br/>&emsp;&emsp;&emsp;pip install torch torchvision torchaudio --index-url <br/>&emsp;&emsp;&emsp;https://download.pytorch.org/whl/cu118
+<br/>&emsp;&emsp;&emsp;install torch torchvision torchaudio --index-url <br/>&emsp;&emsp;&emsp;https://download.pytorch.org/whl/cu118
 <br/>&emsp;
 
 ## Running the Application
 <br/>&emsp;1. Start the Flask application:
-<br/>&emsp;<br/>&emsp;python webapp.py
+<br/>&emsp;&emsp;&emsp;python webapp.py
 <br/>&emsp;
 <br/>&emsp;2. Open a web browser and go to:
-<br/>&emsp;<br/>&emsp;http://127.0.0.1:5000
+<br/>&emsp;&emsp;&emsp;http://127.0.0.1:5000
 <br/>&emsp;
 
 ## API Endpoints
