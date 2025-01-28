@@ -10,11 +10,8 @@ A Flask-based web application utilizing the DeepSeek-R1-Distill-Qwen-1.5B model 
 2) Implement a web server that:
  <br/>&emsp;
      <br/>&emsp;(i)  Is connected to a simple web-based user interface (WebUI);
-   <br/>&emsp;
      <br/>&emsp;(ii)  Handles incoming requests, passes them to the model for processing, and returns the results;
-   <br/>&emsp;
      <br/>&emsp;(iii)  Treats each request independently, with no shared context between requests;
-   <br/>&emsp;
      <br/>&emsp;(iv)  Queues multiple simultaneous requests and processes them sequentially, ensuring only one
    <br/>&emsp;&emsp;task is handled at a time.
 
@@ -39,7 +36,7 @@ A Flask-based web application utilizing the DeepSeek-R1-Distill-Qwen-1.5B model 
 <br/>&emsp;<br/>&emsp;install all the [libraries](#librariesused)
 <br/>&emsp;
 <br/>&emsp;4. If using a GPU, install PyTorch with CUDA support:
-<br/>&emsp;<br/>&emsp;pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+<br/>&emsp;<br/>&emsp;pip install torch torchvision torchaudio --index-url <br/>&emsp;<br/>&emsp;https://download.pytorch.org/whl/cu118
 <br/>&emsp;
 
 ## Running the Application
